@@ -1,27 +1,21 @@
 package Goldsack.DiscoSheep;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.LinkedList;
-import java.util.logging.Logger;
-
-import javax.swing.Timer;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Sheep;
 import org.bukkit.event.Event;
 import org.bukkit.event.Event.Priority;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.nijikokun.bukkit.Permissions.Permissions;
-import com.nijiko.permissions.PermissionHandler;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.LinkedList;
+
+/*import com.nijikokun.bukkit.Permissions.Permissions;
+import com.nijiko.permissions.PermissionHandler;      */
 
 /**
  * DiscoSheep is a plugin to minecraft servers running minecraft.
@@ -41,11 +35,11 @@ public class DiscoSheep extends JavaPlugin implements ActionListener{
 	/**
 	 * Called when plugin starts.
 	 */
-	@Override
+	//@Override
 	public void onEnable() {
 		PluginManager pm = getServer().getPluginManager();	
-		pm.registerEvent(Event.Type.ENTITY_DAMAGED, entityListener, Priority.Normal, this);
-		pm.registerEvent(Event.Type.EXPLOSION_PRIMED, entityListener, Priority.Normal, this);
+		pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Priority.Normal, this);
+		pm.registerEvent(Event.Type.EXPLOSION_PRIME, entityListener, Priority.Normal, this);
 		pm.registerEvent(Event.Type.BLOCK_BREAK, blockListener, Priority.Normal, this);
 		
 		PluginDescriptionFile pdfFile = this.getDescription();
@@ -64,7 +58,7 @@ public class DiscoSheep extends JavaPlugin implements ActionListener{
 	 * Called when plugin ends.
 	 * Cancels all threads, and wait for them to end.
 	 */
-	@Override
+	//@Override
 	public void onDisable() {
 		stopParty();
 		discoParty.end();
@@ -442,7 +436,7 @@ public class DiscoSheep extends JavaPlugin implements ActionListener{
 	/**
 	 * Called when timer wants to stop party
 	 */
-	@Override
+	//@Override
 	public void actionPerformed(ActionEvent arg0) {
 		stopParty();		
 	}
@@ -453,7 +447,7 @@ public class DiscoSheep extends JavaPlugin implements ActionListener{
 		
 		s.append("timer tick delay: " + timer.getInitialDelay()		+ ln);
 		s.append("permissions on? : " + permit.usePermit			+ ln);
-		s.append("Permissions obj : " + permit.permit				+ ln);
+		//s.append("Permissions obj : " + permit.permit				+ ln);
 		
 
 		for(Setting setting: settings.settings){

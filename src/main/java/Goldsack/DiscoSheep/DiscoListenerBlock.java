@@ -1,7 +1,6 @@
 package Goldsack.DiscoSheep;
 
 import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockListener;
 

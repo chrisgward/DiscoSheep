@@ -1,37 +1,17 @@
 package Goldsack.DiscoSheep;
 
-import java.lang.reflect.Constructor;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Random;
-
-import net.minecraft.server.EntityCreature;
-import net.minecraft.server.EntityGhast;
-import net.minecraft.server.EntityTypes;
-import net.minecraft.server.SpawnerCreature;
-import net.minecraft.server.WorldServer;
-
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.NoteBlock;
-import org.bukkit.craftbukkit.CraftServer;
-import org.bukkit.craftbukkit.CraftWorld;
-import org.bukkit.craftbukkit.entity.CraftEntity;
-import org.bukkit.craftbukkit.entity.CraftGhast;
-import org.bukkit.craftbukkit.entity.CraftSheep;
-import org.bukkit.entity.CreatureType;
-import org.bukkit.entity.Creeper;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Ghast;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Sheep;
-import org.bukkit.material.MaterialData;
+import org.bukkit.entity.*;
 import org.bukkit.util.Vector;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Random;
 /**
  * Discoparty includes a list of all players and their party teams when discoparty was started
  * Also include some setting on how many sheeps to be spawned, beatspeed and block distance for sheeps to spawn

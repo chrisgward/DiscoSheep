@@ -1,11 +1,9 @@
 package Goldsack.DiscoSheep;
 
 import org.bukkit.entity.Entity;
-
-import org.bukkit.entity.Sheep;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityListener;
-import org.bukkit.event.entity.ExplosionPrimedEvent;
+import org.bukkit.event.entity.ExplosionPrimeEvent;
 /**
  * Class to listen to entity damage. 
  * If we own entity and they are not allowed to drop item then damage is disabled.
@@ -31,8 +29,8 @@ public class DiscoListenerEntity extends EntityListener{
 	}
 	
 	@Override
-	public void onExplosionPrimed(ExplosionPrimedEvent event) {
-		super.onExplosionPrimed(event);
+	public void onExplosionPrime(ExplosionPrimeEvent event) {
+		super.onExplosionPrime(event);
 		Entity entity = event.getEntity();
 		if(!((BoolS)plugin.settings.getSetting("explosion")).getV()){
 			event.setCancelled(plugin.discoParty.isOurEntity(entity));			

@@ -1,15 +1,11 @@
 package Goldsack.DiscoSheep;
 
-import java.util.LinkedList;
-
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.NoteBlock;
-import org.bukkit.entity.Creeper;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Ghast;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Sheep;
+import org.bukkit.entity.*;
+
+import java.util.LinkedList;
 
 /**
  * Contains the entitys for each party that belongs to a player.
@@ -41,7 +37,7 @@ public class DiscoTeam {
 		soundBlock = loc.getRelative(1, 1, 1);
 		soundBlock.setType(Material.NOTE_BLOCK);
 		if(soundBlock.getState() instanceof NoteBlock){
-			((NoteBlock)soundBlock.getState()).setNote((byte) 0x11);			
+			((NoteBlock)soundBlock.getState()).setRawNote((byte) 0x11);
 		}
 		
 		stoneBlock = loc.getRelative(1, 0, 1);
