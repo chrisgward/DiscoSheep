@@ -1,0 +1,26 @@
+name: DiscoSheep
+main: Goldsack.DiscoSheep.DiscoSheep
+version: 0.3
+author: Goldsack
+description: Gets sheeps into partymode
+commands:
+  discosheep:
+    usage: |
+           See /ds for more info on DiscoSheep
+  discoparty:
+    usage: |
+           See /ds for more info on DiscoSheep
+  disco:
+    usage: |
+           See /ds for more info on DiscoSheep
+  ds:
+    description: Gets sheeps into partymode
+    usage: |
+           /<command> color to toggle all sheeps going rainbowmode
+           /<command> stop to end party
+           You can mix up the commands and include it in any order you like.
+           Example: /<command> david john sheep:10 creeper:5 time:4 distance:8
+           to give david and john a party with 10 sheeps, 5 creepers, that
+           lasts for 4 sec and spawns within 8 blocks of them.
+           You can also use s:10 c:5 t:4 d:8 as shortcuts.
+           Use "all" to give every player a party time! Untz Untz!
