@@ -52,6 +52,7 @@ public class DiscoPermission {
 			usePermit = true;
 			System.out.println("[DiscoSheep] Permissions plugin detected!");
 		}*/
+        usePermit = true;
 	}
 	/**
 	 * User permissions or ops.txt to decide if user can call command

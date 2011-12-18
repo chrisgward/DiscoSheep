@@ -24,3 +24,44 @@ commands:
            lasts for 4 sec and spawns within 8 blocks of them.
            You can also use s:10 c:5 t:4 d:8 as shortcuts.
            Use "all" to give every player a party time! Untz Untz!
+    aliases: [discosheep, discoparty, disco]
+    permission: discosheep.help
+permissions:
+  discosheep.*:
+    description: Grants you access to all of DiscoSheep's commands
+    default: op
+    children:
+      discosheep.party.one: true
+      discosheep.party.many: true
+      discosheep.mob.sheep: true
+      discosheep.mob.creeper: true
+      discosheep.stop: true
+      discosheep.color: true
+      discosheep.reload: true
+      discosheep.help: true
+  discosheep.party.*:
+    default: op
+    children:
+      discosheep.party.one: true
+      discosheep.party.many: true
+  discosheep.mob.*:
+    default: op
+    children:
+      discosheep.mob.sheep: true
+      discosheep.mob.creeper: true
+  discosheep.party.one:
+    default: op
+  discosheep.party.many:
+    default: op
+  discosheep.mob.sheep:
+    default: op
+  discosheep.mob.creeper:
+    default: op
+  discosheep.stop:
+    default: op
+  discosheep.color:
+    default: op
+  discosheep.reload:
+    default: op
+  discosheep.help:
+    default: op
