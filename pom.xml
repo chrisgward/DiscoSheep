@@ -8,6 +8,16 @@
     <artifactId>DiscoSheep</artifactId>
     <version>1.0</version>
 
+    <build>
+        <resources>
+            <resource>
+                <directory>src/resources</directory>
+                <includes>
+                    <include>**/*.yml</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
 
     <repositories>
         <repository>
