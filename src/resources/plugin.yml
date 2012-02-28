@@ -1,6 +1,6 @@
 name: DiscoSheep
 main: Goldsack.DiscoSheep.DiscoSheep
-version: 0.3
+version: 1.0
 author: Goldsack
 description: Gets sheeps into partymode
 commands:
