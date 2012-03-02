@@ -63,7 +63,7 @@ public class DiscoPermission {
 	 * @return
 	 */
 	
-	public boolean isPermittet(CommandSender sender, String command, boolean sendMessage){
+	public boolean isPermitted(CommandSender sender, String command, boolean sendMessage){
 		if(!(sender instanceof Player)){
 			//Console wants to run command, always allowed
 			return true;

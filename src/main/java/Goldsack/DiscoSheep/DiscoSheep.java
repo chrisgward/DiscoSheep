@@ -3,8 +3,6 @@ package Goldsack.DiscoSheep;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
-import org.bukkit.event.Event.Priority;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -37,10 +35,9 @@ public class DiscoSheep extends JavaPlugin implements ActionListener{
 	 */
 	//@Override
 	public void onEnable() {
-		PluginManager pm = getServer().getPluginManager();	
-		pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Priority.Normal, this);
-		pm.registerEvent(Event.Type.EXPLOSION_PRIME, entityListener, Priority.Normal, this);
-		pm.registerEvent(Event.Type.BLOCK_BREAK, blockListener, Priority.Normal, this);
+		PluginManager pm = getServer().getPluginManager();
+        pm.registerEvents(entityListener, this);
+        pm.registerEvents(blockListener, this);
 		
 		PluginDescriptionFile pdfFile = this.getDescription();
 		System.out.println( "[" + pdfFile.getName() + "] version " + pdfFile.getVersion() + " is enabled!" );
@@ -77,34 +74,34 @@ public class DiscoSheep extends JavaPlugin implements ActionListener{
 	public boolean onCommand(CommandSender sender, Command cmd,	String commandLabel, String[] args) {
 		
 		if(args.length == 0){
-			if(permit.isPermittet(sender, permit.HELP, true)){
+			if(permit.isPermitted(sender, permit.HELP, true)){
 				return false; //Use plugin.yml to display info
 			}
 			return true;
 		}
 		if(args.length == 1){
 			if (args[0].equalsIgnoreCase(permit.COLOR)) {
-				if(permit.isPermittet(sender, permit.COLOR, true)){
+				if(permit.isPermitted(sender, permit.COLOR, true)){
 					toggleColor();
 					sender.sendMessage("Rainbow sheeps " + (discoParty.isColorOn() ? "Activated":"Deactivated"));
 				}
 				return true;
 			}
 			if (args[0].equalsIgnoreCase(permit.DEBUG)) {
-				if(permit.isPermittet(sender, permit.DEBUG, true)){
+				if(permit.isPermitted(sender, permit.DEBUG, true)){
 					sender.sendMessage(printDebug()); 					
 				}
 				return true;
 			}
 			if (args[0].equalsIgnoreCase(permit.RELOAD)) {
-				if(permit.isPermittet(sender, permit.RELOAD, true)){
+				if(permit.isPermitted(sender, permit.RELOAD, true)){
 					settings.reload();
 					sender.sendMessage("Reloaded DiscoSheep.properties file");				
 				}
 				return true;
 			}
 			if (args[0].equalsIgnoreCase(permit.STOP)) {
-				if(permit.isPermittet(sender, permit.STOP, true)){
+				if(permit.isPermitted(sender, permit.STOP, true)){
 					if(discoParty.flagPartyEnabled){
 						sender.sendMessage("Party Stopped, you little joykiller");						
 					}
@@ -116,7 +113,7 @@ public class DiscoSheep extends JavaPlugin implements ActionListener{
 				return true;
 			}
 			if (args[0].equalsIgnoreCase(permit.HELP)) {
-				if(permit.isPermittet(sender, permit.HELP, true)){
+				if(permit.isPermitted(sender, permit.HELP, true)){
 					return false; //Use plugin.yml to display info
 				}
 				return true;
@@ -125,10 +122,10 @@ public class DiscoSheep extends JavaPlugin implements ActionListener{
 		if(args.length > 0){
 			
 			//Check permissions first
-			if(!(permit.isPermittet(sender, permit.MANY, false) || permit.isPermittet(sender, permit.ONE, false))){
+			if(!(permit.isPermitted(sender, permit.MANY, false) || permit.isPermitted(sender, permit.ONE, false))){
 				
-				//Player was not allowed to have even one party. Sender gets the errormessage from permit.isPermittet(sender, permit.ONE, true)
-				permit.isPermittet(sender, permit.ONE, true);
+				//Player was not allowed to have even one party. Sender gets the errormessage from permit.isPermitted(sender, permit.ONE, true)
+				permit.isPermitted(sender, permit.ONE, true);
 				return true;
 			}
 			
@@ -199,13 +196,13 @@ public class DiscoSheep extends JavaPlugin implements ActionListener{
 			
 			//Check if player can have multiple party
 			if(getPartyPlayers.size() > 1){
-				if(permit.isPermittet(sender, permit.MANY, true)){
+				if(permit.isPermitted(sender, permit.MANY, true)){
 					//all good, do nothing
 				}
 				else{
 					//User is not allowed to have multiple parties.
-					//An error message is already sent from permit.isPermittet(sender, permit.MANY)
-					if(permit.isPermittet(sender, permit.ONE, false)){
+					//An error message is already sent from permit.isPermitted(sender, permit.MANY)
+					if(permit.isPermitted(sender, permit.ONE, false)){
 						//Send message to hint that player is allowed to have one party.
 						sender.sendMessage("But you are allowed to create party for one player!");
 					}
@@ -215,23 +212,23 @@ public class DiscoSheep extends JavaPlugin implements ActionListener{
 			}
 			//Check if player can have one party
 			if(getPartyPlayers.size() == 1){
-				if(permit.isPermittet(sender, permit.MANY, false) || permit.isPermittet(sender, permit.ONE, true)){
+				if(permit.isPermitted(sender, permit.MANY, false) || permit.isPermitted(sender, permit.ONE, true)){
 					//all good, do nothing
 				}
 				else{
 					//User is not allowed to have single parties.
-					//An error message is already sent from permit.isPermittet(sender, permit.ONE)
+					//An error message is already sent from permit.isPermitted(sender, permit.ONE)
 					return true;
 				}
 			}
 			if(getPartyPlayers.size() == 0){
-				if(permit.isPermittet(sender, permit.MANY, false) || permit.isPermittet(sender, permit.ONE, false)){
+				if(permit.isPermitted(sender, permit.MANY, false) || permit.isPermitted(sender, permit.ONE, false)){
 					sender.sendMessage("DiscoSheep did not find any online players to give a party to. Bummer...");	
 					return true;
 				}
 				else{
 					//User is not allowed to have single parties.
-					//An error message is already sent from permit.isPermittet(sender, permit.ONE)
+					//An error message is already sent from permit.isPermitted(sender, permit.ONE)
 					return true;
 				}
 			}
@@ -315,7 +312,7 @@ public class DiscoSheep extends JavaPlugin implements ActionListener{
 			
 			//Max sheeps and permission to spawn sheeps
 			max = ((IntS)settings.getSetting("maxSheepNumber")).getV();
-			if(sheepsN > 0 && permit.isPermittet(sender, permit.SHEEP, false)){
+			if(sheepsN > 0 && permit.isPermitted(sender, permit.SHEEP, false)){
 				if(max < sheepsN){
 					sender.sendMessage("Max sheep limit exceeded, sheeps set to max: " + max);
 					sheepsN = max;
@@ -323,7 +320,7 @@ public class DiscoSheep extends JavaPlugin implements ActionListener{
 			}else{
 				if(sheepsN != sheepsD){
 					// We use permit to send denied message to user
-					permit.isPermittet(sender, permit.SHEEP, true);
+					permit.isPermitted(sender, permit.SHEEP, true);
 				}
 				//If the user has not done any changes to sheeps we silently set sheeps to 0
 				sheepsN = 0;
@@ -331,7 +328,7 @@ public class DiscoSheep extends JavaPlugin implements ActionListener{
 			
 			//Max creepers and permission to spawn creepers
 			max = ((IntS)settings.getSetting("maxCreeperNumber")).getV();
-			if(creepersN > 0 && permit.isPermittet(sender, permit.CREEPER, false)){
+			if(creepersN > 0 && permit.isPermitted(sender, permit.CREEPER, false)){
 				if(max < creepersN){
 					sender.sendMessage("Max creeper limit exceeded, creepers set to max: " + max);
 					creepersN = max;
@@ -339,7 +336,7 @@ public class DiscoSheep extends JavaPlugin implements ActionListener{
 			}else{
 				if(creepersN != creepersD){
 					// We use permit to send denied message to user
-					permit.isPermittet(sender, permit.CREEPER, true);
+					permit.isPermitted(sender, permit.CREEPER, true);
 				}
 				//If the user has not done any changes to creepers we silently set creepers to 0
 				creepersN = 0;
@@ -347,7 +344,7 @@ public class DiscoSheep extends JavaPlugin implements ActionListener{
 			
 			//Max ghasts and permission to spawn ghasts
 			max = ((IntS)settings.getSetting("maxGhastNumber")).getV();
-			if(ghastsN > 0 && permit.isPermittet(sender, permit.GHAST, false)){
+			if(ghastsN > 0 && permit.isPermitted(sender, permit.GHAST, false)){
 				if(max < ghastsN){
 					sender.sendMessage("Max ghast limit exceeded, ghasts set to max: " + max);
 					ghastsN = max;
@@ -355,7 +352,7 @@ public class DiscoSheep extends JavaPlugin implements ActionListener{
 			}else{
 				if(ghastsN != ghastsD){
 					// We use permit to send denied message to user
-					permit.isPermittet(sender, permit.GHAST, true);
+					permit.isPermitted(sender, permit.GHAST, true);
 				}
 				//If the user has not done any changes to ghasts we silently set ghasts to 0
 				ghastsN = 0;
