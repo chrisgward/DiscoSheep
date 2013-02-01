@@ -360,7 +360,7 @@ public class DiscoParty extends Thread{
 			Block spawnPlane = team.getPlayer().getLocation().getBlock().getRelative(x, 0, z);
 			Block spawnLoc = findSpawnYLoc(spawnPlane);
 			if(spawnLoc != null){
-				team.addCreeper((Creeper) spawnLoc.getWorld().spawnCreature(spawnLoc.getLocation(), CreatureType.CREEPER));				
+				team.addCreeper((Creeper) spawnLoc.getWorld().spawn(spawnLoc.getLocation(), Creeper.class));
 			}
 		}
 		
@@ -382,7 +382,7 @@ public class DiscoParty extends Thread{
 			Block spawnPlane = team.getPlayer().getLocation().getBlock().getRelative(x, 0, z);
 			Block spawnLoc = findSpawnYLoc(spawnPlane);
 			if(spawnLoc != null){
-				team.addSheep((Sheep) spawnLoc.getWorld().spawnCreature(spawnLoc.getLocation(), CreatureType.SHEEP));				
+				team.addSheep((Sheep) spawnLoc.getWorld().spawn(spawnLoc.getLocation(), Sheep.class));
 			}
 		}
 	}
