@@ -14,25 +14,23 @@ import org.bukkit.event.entity.ExplosionPrimeEvent;
  *
  */
 public class DiscoListenerEntity implements Listener {
-	DiscoSheep plugin;
+	private final DiscoSheep plugin;
 	public DiscoListenerEntity(DiscoSheep discoSheep) {
 		plugin = discoSheep;
 	}
 	
 	@EventHandler
 	public void onEntityDamage(EntityDamageEvent event) {
-		Entity entity = event.getEntity();
-		if(!((BoolS)plugin.settings.getSetting("dropItems")).getV()){
-			event.setCancelled(plugin.discoParty.isOurEntity(entity));			
+		if(!plugin.getSettings().isDropItems() && plugin.getDiscoParty().isOurEntity(event.getEntity())){
+			event.setCancelled(true);
 		}
 		
 	}
 	
 	@EventHandler
 	public void onExplosionPrime(ExplosionPrimeEvent event) {
-		Entity entity = event.getEntity();
-		if(!((BoolS)plugin.settings.getSetting("explosion")).getV()){
-			event.setCancelled(plugin.discoParty.isOurEntity(entity));			
+		if (!plugin.getSettings().isExplosion() && plugin.getDiscoParty().isOurEntity(event.getEntity())) {
+			event.setCancelled(true);
 		}
 	}
 

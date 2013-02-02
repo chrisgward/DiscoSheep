@@ -14,54 +14,37 @@ import java.util.LinkedList;
 import java.util.Random;
 /**
  * Discoparty includes a list of all players and their party teams when discoparty was started
- * Also include some setting on how many sheeps to be spawned, beatspeed and block distance for sheeps to spawn
+ * Also include some setting on how many sheep to be spawned, beatspeed and block distance for sheep to spawn
  * @author goldsack
  *
  */
 public class DiscoParty extends Thread{
 	private DiscoSheep plugin;
-	protected boolean running;
-	protected boolean flagGenerateTeam = false;
-	protected boolean flagCleanUpTeams = false;
-	protected boolean flagColorEnabled = false;
-	protected boolean flagPartyEnabled = false;
+	private boolean running;
+	private boolean flagGenerateTeam = false;
+	private boolean flagCleanUpTeams = false;
+	private boolean flagColorEnabled = false;
+	public boolean flagPartyEnabled = false;
 	private boolean isCreatingTeam = false;
 	
 	//We will use entity.getEntityId() as our key to store creatures in hash
-	protected HashMap<Integer, Entity> creaturesHash = new HashMap<Integer, Entity>();
+	public HashMap<Integer, Entity> creaturesHash = new HashMap<Integer, Entity>();
 	
 	//We will use toString from block location as our key to store creatures in hash
-	protected HashMap<Location, Block> blockHash = new HashMap<Location, Block>();
+	public HashMap<Location, Block> blockHash = new HashMap<Location, Block>();
 	
 	//Values to set before generateTeams(); is called
-	public Player[] playersToGetParty = null;
-	public int sheepsN = 10;
-	public int creepersN = 0;
-	public int ghastsN = 0;
-	public int spawnRange = 5;
+	private Player[] playersToGetParty = null;
+	private int sheepsN = 10;
+	private int creepersN = 0;
+	private int ghastsN = 0;
+	private int spawnRange = 5;
 
 	protected LinkedList<DiscoTeam> discoTeams = new LinkedList<DiscoTeam>();
-	private int beatspeed = 475; //Millisec between beats
-	
-	public static final DyeColor dyeColors[] = {
-		DyeColor.WHITE,
-		DyeColor.ORANGE,
-		DyeColor.MAGENTA,
-		DyeColor.LIGHT_BLUE,
-		DyeColor.YELLOW,
-		DyeColor.LIME,
-		DyeColor.PINK,
-		DyeColor.GRAY,
-		DyeColor.SILVER,
-		DyeColor.CYAN,
-		DyeColor.PURPLE,
-		DyeColor.BLUE,
-		DyeColor.BROWN,
-		DyeColor.GREEN,
-		DyeColor.RED,
-		DyeColor.BLACK
-		};
-	
+	private final int beatspeed = 475; //Millisec between beats
+
+	public static final DyeColor[] dyeColors = DyeColor.values();
+
 	public DiscoParty(DiscoSheep discoSheep) {
 		plugin = discoSheep;
 		running = false;		
@@ -138,9 +121,9 @@ public class DiscoParty extends Thread{
 			running = true;
 			cleanUp();
 			discoTeams.clear();
-			
-			long timedelta = 0;
-			long timeStart = 0;		
+
+			long timedelta;
+			long timeStart;
 			LinkedList<DiscoTeam> toDelete = new LinkedList<DiscoTeam>(); //Store teams that needs to be removed
 			
 			while(running){
@@ -303,10 +286,9 @@ public class DiscoParty extends Thread{
 	 */
 	private void addGhasts(DiscoTeam team, int ghasts) {
 		Random rand = new Random();
-		
-		int creeperNumber = ghasts;
+
 		int spawnDistance = spawnRange;
-		for (int i = 0; i < creeperNumber; i++) {
+		for (int i = 0; i < ghasts; i++) {
 			int r = rand.nextInt(spawnDistance * 2 * spawnDistance * 2); 
 			int x = (r%(spawnDistance * 2)) - spawnDistance;
 			int z = (r/(spawnDistance * 2)) - spawnDistance;
@@ -350,17 +332,16 @@ public class DiscoParty extends Thread{
 	 */
 	private void addCreepers(DiscoTeam team, int creepers) {
 		Random rand = new Random();
-		
-		int creeperNumber = creepers;
+
 		int spawnDistance = spawnRange;
-		for (int i = 0; i < creeperNumber; i++) {
+		for (int i = 0; i < creepers; i++) {
 			int r = rand.nextInt(spawnDistance * 2 * spawnDistance * 2); 
 			int x = (r%(spawnDistance * 2)) - spawnDistance;
 			int z = (r/(spawnDistance * 2)) - spawnDistance;
 			Block spawnPlane = team.getPlayer().getLocation().getBlock().getRelative(x, 0, z);
 			Block spawnLoc = findSpawnYLoc(spawnPlane);
 			if(spawnLoc != null){
-				team.addCreeper((Creeper) spawnLoc.getWorld().spawn(spawnLoc.getLocation(), Creeper.class));
+				team.addCreeper(spawnLoc.getWorld().spawn(spawnLoc.getLocation(), Creeper.class));
 			}
 		}
 		
@@ -372,17 +353,16 @@ public class DiscoParty extends Thread{
 	 */
 	private void addSheeps(DiscoTeam team, int sheeps) {
 		Random rand = new Random();
-		
-		int sheepNumber = sheeps;
+
 		int spawnDistance = spawnRange;
-		for (int i = 0; i < sheepNumber; i++) {
+		for (int i = 0; i < sheeps; i++) {
 			int r = rand.nextInt(spawnDistance * 2 * spawnDistance * 2); 
 			int x = (r%(spawnDistance * 2)) - spawnDistance;
 			int z = (r/(spawnDistance * 2)) - spawnDistance;
 			Block spawnPlane = team.getPlayer().getLocation().getBlock().getRelative(x, 0, z);
 			Block spawnLoc = findSpawnYLoc(spawnPlane);
 			if(spawnLoc != null){
-				team.addSheep((Sheep) spawnLoc.getWorld().spawn(spawnLoc.getLocation(), Sheep.class));
+				team.addSheep(spawnLoc.getWorld().spawn(spawnLoc.getLocation(), Sheep.class));
 			}
 		}
 	}
@@ -500,7 +480,7 @@ public class DiscoParty extends Thread{
 	
 	/**
 	 * Makes the sheep entity twitch/jump randomly to make a MOSH PIT!
-	 * @param entity
+	 * @param sheep
 	 */
 	private void sheepJump(Sheep sheep) {
 		
@@ -566,11 +546,7 @@ public class DiscoParty extends Thread{
 	public boolean isOurEntity(Entity entity) {
 		
 		//Find sheeps in O(1) time
-		if(creaturesHash.containsKey(entity.getEntityId())){
-			return true;
-		}
-		
-		return false;
+		return creaturesHash.containsKey(entity.getEntityId());
 	}
 	/**
 	 * See if block is in one of our discoteams
@@ -580,10 +556,6 @@ public class DiscoParty extends Thread{
 	public boolean isOurEntity(Block block) {
 		
 		//Find block in O(1) time
-		if(blockHash.containsKey(block.getLocation())){
-			return true;
-		}
-		
-		return false;
+		return blockHash.containsKey(block.getLocation());
 	}
 }

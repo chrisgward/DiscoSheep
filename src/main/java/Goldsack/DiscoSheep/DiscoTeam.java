@@ -142,7 +142,7 @@ public class DiscoTeam {
 	public void addSheep(Sheep sheep){
 		if(sheep != null){
 			sheepList.add(sheep);
-			discoParty.creaturesHash.put(sheep.getEntityId(), (Entity) sheep);		
+			discoParty.creaturesHash.put(sheep.getEntityId(), sheep);
 		}
 		else{
 			System.out.println("[DiscoSheep] addSheep in DiscoTeam recived a creeper that was null. Sheep not added");
@@ -155,7 +155,7 @@ public class DiscoTeam {
 	public void addCreeper(Creeper creeper) {
 		if(creeper != null){
 			creeperList.add(creeper);
-			discoParty.creaturesHash.put(creeper.getEntityId(), (Entity) creeper);
+			discoParty.creaturesHash.put(creeper.getEntityId(), creeper);
 		}
 		else{
 			System.out.println("[DiscoSheep] addCreeper in DiscoTeam recived a creeper that was null. Creeper not added");
@@ -168,7 +168,7 @@ public class DiscoTeam {
 	public void addGhast(Ghast ghast) {
 		if(ghast != null){
 			ghastList.add(ghast);
-			discoParty.creaturesHash.put(ghast.getEntityId(), (Entity) ghast);	
+			discoParty.creaturesHash.put(ghast.getEntityId(), ghast);
 		}
 		else{
 			System.out.println("[DiscoSheep] addGhast in DiscoTeam recived a ghast that was null. Ghast not added");

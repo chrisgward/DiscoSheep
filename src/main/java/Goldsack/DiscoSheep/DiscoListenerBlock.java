@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 public class DiscoListenerBlock implements Listener {
-	DiscoSheep plugin;
+	private final DiscoSheep plugin;
 	
 	public DiscoListenerBlock(DiscoSheep discoSheep) {
 		plugin = discoSheep;
@@ -14,10 +14,8 @@ public class DiscoListenerBlock implements Listener {
 
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent event) {
-		Block block = event.getBlock();
-		if(!((BoolS)plugin.settings.getSetting("dropItems")).getV()){
-			event.setCancelled(plugin.discoParty.isOurEntity(block));			
+		if(!plugin.getSettings().isDropItems() && plugin.getDiscoParty().isOurEntity(event.getBlock())){
+			event.setCancelled(true);
 		}
-		
 	}
 }

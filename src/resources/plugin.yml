@@ -4,15 +4,6 @@ version: ${version}
 author: chrisward
 description: Gets sheeps into partymode
 commands:
-  discosheep:
-    usage: |
-           See /ds for more info on DiscoSheep
-  discoparty:
-    usage: |
-           See /ds for more info on DiscoSheep
-  disco:
-    usage: |
-           See /ds for more info on DiscoSheep
   ds:
     description: Gets sheeps into partymode
     usage: |
