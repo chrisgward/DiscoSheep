@@ -50,7 +50,7 @@ public class DiscoSettings {
 				reader.close();
 				writer.close();
 			}
-			plugin.getConfig().load(file);
+			plugin.reloadConfig();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
