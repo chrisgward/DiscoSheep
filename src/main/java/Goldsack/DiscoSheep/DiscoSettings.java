@@ -43,7 +43,7 @@ public class DiscoSettings {
 					folder.mkdirs();
 
 				BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
-				BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("config.yml")));
+				BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/config.yml")));
 				while(reader.ready())
 					writer.write(reader.readLine() + "\n");
 	            writer.flush();
