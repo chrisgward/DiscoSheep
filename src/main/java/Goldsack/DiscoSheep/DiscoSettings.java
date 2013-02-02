@@ -50,7 +50,7 @@ public class DiscoSettings {
 				reader.close();
 				writer.close();
 			}
-			plugin.reloadConfig();
+			plugin.getConfig().load(new File("plugins/DiscoSheep/config.yml"));
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
