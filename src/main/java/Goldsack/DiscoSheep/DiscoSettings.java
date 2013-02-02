@@ -76,10 +76,10 @@ public class DiscoSettings {
 	}
 
 	private boolean settingsValidation() {
-		return getDefaultPartyTime() < getMaxPartyTime() &&
-				getSheepNumber() < getMaxSheepNumber() &&
-				getCreeperNumber() < getMaxCreeperNumber() &&
-				getGhastNumber() < getMaxGhastNumber();
+		return getDefaultPartyTime() <= getMaxPartyTime() &&
+				getSheepNumber() <= getMaxSheepNumber() &&
+				getCreeperNumber() <= getMaxCreeperNumber() &&
+				getGhastNumber() <= getMaxGhastNumber();
 	}
 
 	
