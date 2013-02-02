@@ -1,18 +1,14 @@
 package Goldsack.DiscoSheep;
 
 import lombok.Getter;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.LinkedList;
 
 /*import com.nijikokun.bukkit.Permissions.Permissions;
 import com.nijiko.permissions.PermissionHandler;      */
@@ -24,8 +20,7 @@ import com.nijiko.permissions.PermissionHandler;      */
  *
  */
 public class DiscoSheep extends JavaPlugin implements ActionListener{
-	@Getter private DiscoListenerEntity entityListener = new DiscoListenerEntity(this);
-	@Getter private DiscoListenerBlock blockListener = new DiscoListenerBlock(this);
+	@Getter private DiscoListener entityListener = new DiscoListener(this);
 	@Getter private DiscoParty discoParty;
 	@Getter private DiscoSettings settings = new DiscoSettings(this);
 	@Getter private DiscoCommandHandler commandHandler;
@@ -39,7 +34,6 @@ public class DiscoSheep extends JavaPlugin implements ActionListener{
 	public void onEnable() {
 		PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(entityListener, this);
-        pm.registerEvents(blockListener, this);
 		
 		settings = new DiscoSettings(this);
 

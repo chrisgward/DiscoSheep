@@ -5,6 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -39,14 +40,11 @@ public class DiscoCommandHandler implements CommandExecutor
 			if(!(sender.hasPermission("discosheep.many") || sender.hasPermission("discosheep.one"))){
 
 				//Player was not allowed to have even one party. Sender gets the errormessage from plugin.getPermit().isPermitted(sender, plugin.getPermit().ONE, true)
-				//TODO: Send error
+				sender.sendMessage("You don't have permission to start a sheep party :(");
 				return true;
 			}
 
-
-
-			Player[] onlinePlayer = plugin.getServer().getOnlinePlayers();
-			LinkedList<Player> partyPlayers = new LinkedList<Player>();
+			ArrayList<Player> partyPlayers = new ArrayList<Player>();
 
 			// N = numbers
 			// D = default
@@ -78,13 +76,20 @@ public class DiscoCommandHandler implements CommandExecutor
 						partyPlayers.clear();
 						for(Player p : plugin.getServer().getOnlinePlayers())
 							partyPlayers.add(p);
+						break;
 					}
-					List<Player> players = plugin.getServer().matchPlayer(s);
-					if(players.size() == 0)
+					else
 					{
-						//TODO: Send player not found message
+						List<Player> players = plugin.getServer().matchPlayer(s);
+						if(players.size() == 0)
+						{
+							sender.sendMessage("Couldn't find a player with the name: " + s);
+						}
+						else
+						{
+							partyPlayers.addAll(players);
+						}
 					}
-					partyPlayers.addAll(players);
 				}
 			}
 
@@ -92,15 +97,13 @@ public class DiscoCommandHandler implements CommandExecutor
 			if(partyPlayers.size() > 1){
 				if(!sender.hasPermission("discosheep.many")) {
 					//User is not allowed to have multiple parties.
-					//An error message is already sent from plugin.getPermit().isPermitted(sender, plugin.getPermit().MANY)
-					// TODO: You may not start a sheep party :(
-					sender.sendMessage("But you are allowed to create party for one player!");
+					sender.sendMessage("You may not create a party for anyone but yourself :(");
 					return true;
 				}
 			}
 
 			if(partyPlayers.size() == 0){
-				sender.sendMessage("DiscoSheep did not find any online players to give a party to. Bummer...");
+				sender.sendMessage("Couldn't find any online players to give a party to. Bummer...");
 				return true;
 			}
 
@@ -123,9 +126,11 @@ public class DiscoCommandHandler implements CommandExecutor
 						else if(temp[0].equalsIgnoreCase("d") || temp[0].equalsIgnoreCase("distance") || temp[0].equalsIgnoreCase("spawn")){
 							spawnDistance = Integer.parseInt(temp[1]);
 						}
-					} catch (NumberFormatException e)
+					}
+					catch (NumberFormatException e)
 					{
-						// TODO: Malformed Number Error
+						sender.sendMessage(temp[1] + " doesn't look like a number... Try again, perhaps?");
+						return true;
 					}
 				}
 			}
@@ -148,7 +153,7 @@ public class DiscoCommandHandler implements CommandExecutor
 			}
 			else{
 				if(sheepsN != plugin.getSettings().getSheepNumber()){
-					// TODO: No perms :(
+					sender.sendMessage("You don't have permission to have sheep in your party");
 				}
 				//If the user has not done any changes to sheeps we silently set sheeps to 0
 				sheepsN = 0;
@@ -164,7 +169,7 @@ public class DiscoCommandHandler implements CommandExecutor
 			}
 			else{
 				if(creepersN != plugin.getSettings().getMaxCreeperNumber()){
-					// TODO: No perms :(
+					sender.sendMessage("You don't have permission to have creepers in your party");
 				}
 				//If the user has not done any changes to creepers we silently set creepers to 0
 				creepersN = 0;
@@ -180,7 +185,7 @@ public class DiscoCommandHandler implements CommandExecutor
 			}
 			else{
 				if(ghastsN != plugin.getSettings().getGhastNumber()){
-					// TODO: No perms :(
+					sender.sendMessage("You don't have permission to have ghasts in your party");
 				}
 				//If the user has not done any changes to ghasts we silently set ghasts to 0
 				ghastsN = 0;
@@ -225,11 +230,13 @@ public class DiscoCommandHandler implements CommandExecutor
 	public boolean commandStop(CommandSender sender)
 	{
 		if(sender.hasPermission("discosheep.stop"))
+		{
 			if(plugin.getDiscoParty().flagPartyEnabled)
 				sender.sendMessage("Party Stopped, you little joykiller");
 			else
 				sender.sendMessage("There is no party running, or it just ended. Nothing to stop");
-		plugin.stopParty();
+			plugin.stopParty();
+		}
 		return true;
 	}
 }

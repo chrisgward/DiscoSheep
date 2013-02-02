@@ -34,27 +34,26 @@ public class DiscoSettings {
 	public DiscoSettings(DiscoSheep plugin)
 	{
 		this.plugin = plugin;
-		FileConfiguration config = plugin.getConfig();
 		File file = new File("plugins/DiscoSheep/config.yml");
 		if(!file.exists())
 			plugin.saveDefaultConfig();
 		try {
-			config.load(file);
+			plugin.reloadConfig();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		dropItems = config.getBoolean("dropItems");
-		sheepNumber = config.getInt("sheepNumber");
-		maxSheepNumber = config.getInt("maxSheepNumber");
-		explosion = config.getBoolean("explosion");
-		creeperNumber = config.getInt("creeperNumber");
-		maxCreeperNumber = config.getInt("maxCreeperNumber");
-		ghastNumber = config.getInt("ghastNumber");
-		maxGhastNumber = config.getInt("maxGhastNumber");
-		defaultPartyTime = config.getInt("defaultPartyTime");
-		maxPartyTime = config.getInt("maxPartyTime");
-		spawnDistance = config.getInt("spawnDistance");
-		maxSpawnDistance = config.getInt("maxSpawnDistance");
+		dropItems = plugin.getConfig().getBoolean("dropItems");
+		sheepNumber = plugin.getConfig().getInt("sheepNumber");
+		maxSheepNumber = plugin.getConfig().getInt("maxSheepNumber");
+		explosion = plugin.getConfig().getBoolean("explosion");
+		creeperNumber = plugin.getConfig().getInt("creeperNumber");
+		maxCreeperNumber = plugin.getConfig().getInt("maxCreeperNumber");
+		ghastNumber = plugin.getConfig().getInt("ghastNumber");
+		maxGhastNumber = plugin.getConfig().getInt("maxGhastNumber");
+		defaultPartyTime = plugin.getConfig().getInt("defaultPartyTime");
+		maxPartyTime = plugin.getConfig().getInt("maxPartyTime");
+		spawnDistance = plugin.getConfig().getInt("spawnDistance");
+		maxSpawnDistance = plugin.getConfig().getInt("maxSpawnDistance");
 		if(!settingsValidation())
 		{
 			throw new RuntimeException ("Malformed configuration. Make sure default options are below their maximum settings.");
