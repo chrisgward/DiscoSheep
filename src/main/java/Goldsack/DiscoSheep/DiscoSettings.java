@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
 import java.util.HashMap;
@@ -34,6 +35,7 @@ public class DiscoSettings {
 	public DiscoSettings(DiscoSheep plugin)
 	{
 		this.plugin = plugin;
+		YamlConfiguration configuration;
 		try {
 			File file = new File("plugins/DiscoSheep/config.yml");
 			if(!file.exists())
@@ -50,22 +52,23 @@ public class DiscoSettings {
 				reader.close();
 				writer.close();
 			}
-			plugin.getConfig().load(new File("plugins/DiscoSheep/config.yml"));
+			configuration = new YamlConfiguration();
+			configuration.load(file);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		dropItems = plugin.getConfig().getBoolean("dropItems");
-		sheepNumber = plugin.getConfig().getInt("sheepNumber");
-		maxSheepNumber = plugin.getConfig().getInt("maxSheepNumber");
-		explosion = plugin.getConfig().getBoolean("explosion");
-		creeperNumber = plugin.getConfig().getInt("creeperNumber");
-		maxCreeperNumber = plugin.getConfig().getInt("maxCreeperNumber");
-		ghastNumber = plugin.getConfig().getInt("ghastNumber");
-		maxGhastNumber = plugin.getConfig().getInt("maxGhastNumber");
-		defaultPartyTime = plugin.getConfig().getInt("defaultPartyTime");
-		maxPartyTime = plugin.getConfig().getInt("maxPartyTime");
-		spawnDistance = plugin.getConfig().getInt("spawnDistance");
-		maxSpawnDistance = plugin.getConfig().getInt("maxSpawnDistance");
+		dropItems = configuration.getBoolean("dropItems");
+		sheepNumber = configuration.getInt("sheepNumber");
+		maxSheepNumber = configuration.getInt("maxSheepNumber");
+		explosion = configuration.getBoolean("explosion");
+		creeperNumber = configuration.getInt("creeperNumber");
+		maxCreeperNumber = configuration.getInt("maxCreeperNumber");
+		ghastNumber = configuration.getInt("ghastNumber");
+		maxGhastNumber = configuration.getInt("maxGhastNumber");
+		defaultPartyTime = configuration.getInt("defaultPartyTime");
+		maxPartyTime = configuration.getInt("maxPartyTime");
+		spawnDistance = configuration.getInt("spawnDistance");
+		maxSpawnDistance = configuration.getInt("maxSpawnDistance");
 		if(!settingsValidation())
 		{
 			throw new RuntimeException ("Malformed configuration. Make sure default options are below their maximum settings.");
