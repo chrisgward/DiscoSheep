@@ -1,0 +1,38 @@
+#Set true or false if you want players to be able to loot items from creatures (Blocks is not yet affected by this variable)
+#Be aware this is only for creatures the plugin spawns.
+#It does not stop looting colored wool from natural spawned sheeps that has changed color with "/ds color"
+dropItems: true
+
+#Set how many sheeps a party gets by default
+sheepNumber: 15
+
+#Set max number of sheeps a player can demand to be used in party.
+#This is per player so if you have 20 people logged in it will spawn 20*n sheeps and could slow down servers with hundreds of sheeps
+maxSheepNumber: 25
+
+#Creeper spawned will not explode. Be aware that naturally spawned creepers will blow up your face.
+explosion: false
+
+#Set how many creepers a party gets by default
+creeperNumber: 3
+
+#Set max number of creeper a player can demand to be used in party. This is per player
+maxCreeperNumber: 10
+
+#(GHASTS DO NOT WORK. I will try to fix it later)Ghasts are set to 0 since they will spew exploding fireballs
+ghastNumber: 0
+
+#(GHASTS DO NOT WORK. I will try to fix it later)Set max number of ghasts a player can demand to be used in party. This is per player
+maxGhastNumber: 0
+
+#Sets time duration in seconds for how long a party will last on default
+defaultPartyTime: 1
+
+#Sets max time duration in seconds for how long a party can last
+maxPartyTime: 120
+
+#Sets how big the spawn distance around the player is in blocks. Creatures spawns in a square
+spawnDistance: 5
+
+#Sets the max spawn distance around the player is in blocks. Creatures spawns in a square
+maxSpawnDistance: 15
