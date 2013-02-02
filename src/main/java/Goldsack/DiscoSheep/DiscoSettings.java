@@ -34,11 +34,23 @@ public class DiscoSettings {
 	public DiscoSettings(DiscoSheep plugin)
 	{
 		this.plugin = plugin;
-		File file = new File("plugins/DiscoSheep/config.yml");
-		if(!file.exists())
-			plugin.saveDefaultConfig();
 		try {
-			plugin.reloadConfig();
+			File file = new File("plugins/DiscoSheep/config.yml");
+			if(!file.exists())
+			{
+				File folder = new File("plugins/DiscoSheep");
+				if(!folder.exists())
+					folder.mkdirs();
+
+				BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
+				BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("config.yml")));
+				while(reader.ready())
+					writer.write(reader.readLine() + "\n");
+	            writer.flush();
+				reader.close();
+				writer.close();
+			}
+			plugin.getConfig().load(file);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
